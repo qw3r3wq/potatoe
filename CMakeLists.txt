@@ -1,23 +1,28 @@
-cmake_minimum_required(VERSION 3.12)
+#cmake_minimum_required(VERSION 3.12)
 
-include(pico_sdk_import.cmake)
+# Pull in SDK (must be before project)
+#include(/home/ruslanas/git/pico-sdk/pico_sdk_import.cmake)
 
-project(blink C CXX ASM)
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 17)
+cmake_minimum_required(VERSION 3.13)
 
-set(PICO_EXAMPLES_PATH ${PROJECT_SOURCE_DIR})
+# initialize the SDK based on PICO_SDK_PATH
+# note: this must happen before project()
+# include(pico_sdk_import.cmake)
+include(/home/ruslanas/git/pico-sdk/pico_sdk_init.cmake)
 
-# Imitialize the SDK
+project(blink2)
+
+# initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-add_executable(
-	poo.c
+# rest of your project
+
+add_executable(blink2
+    blink2.c
 )
 
-# Pull in our pico-stdlib which pulls in commonl
-target_link_libraries(blink pico_stdlib)
+# Add pico_stdlib library which aggregates commonly used features
+target_link_libraries(blink2 pico_stdlib)
 
-# create map/link/hex file etc
-pico_add_extra_outputs(blink)
-
+# create map/bin/hex/uf2 file in addition to ELF.
+pico_add_extra_outputs(blink2)
